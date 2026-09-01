@@ -1905,3 +1905,72 @@ console.log('🎯 3D Carousel aktif! Geser kiri/kanan untuk navigasi!');
 if (window.isSpecificGame) {
     console.log('🎯 Game spesifik: ' + selectedGame + ' — navigasi kartu disembunyikan.');
 }
+
+// ===== FITUR AUTO PROMPT INSTALL PWA =====
+let deferredPrompt;
+
+// Buat elemen banner install secara otomatis
+const installBanner = document.createElement('div');
+installBanner.id = 'pwaInstallBanner';
+installBanner.style.cssText = `
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #13261e, #1a3d2f);
+  border: 2px solid #4caf7a;
+  border-radius: 16px;
+  padding: 12px 20px;
+  display: none;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  z-index: 99999;
+  width: 90%;
+  max-width: 400px;
+`;
+
+installBanner.innerHTML = `
+  <div style="font-size:28px;">🕌</div>
+  <div style="flex:1;color:#fff;font-family:sans-serif;">
+    <div style="font-weight:bold;font-size:14px;">Install Aplikasi</div>
+    <div style="font-size:11px;color:#8fb3a0;">Mainkan lebih cepat & ringan!</div>
+  </div>
+  <button id="btnPwaInstall" style="background:#4caf7a;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer;">Install</button>
+  <button id="btnPwaClose" style="background:transparent;color:#8fb3a0;border:none;font-size:16px;cursor:pointer;padding:0 4px;">✕</button>
+`;
+
+document.body.appendChild(installBanner);
+
+// Cek apakah aplikasi dibuka sebagai PWA (sudah ter-install)
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+if (!isStandalone) {
+  // Tangkap event install dari browser
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Tampilkan banner jika belum di-install
+    installBanner.style.display = 'flex';
+  });
+}
+
+// Handler Tombol Install
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'btnPwaInstall') {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User menerima install PWA');
+        }
+        deferredPrompt = null;
+        installBanner.style.display = 'none';
+      });
+    }
+  }
+  
+  if (e.target && e.target.id === 'btnPwaClose') {
+    installBanner.style.display = 'none';
+  }
+});
