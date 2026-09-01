@@ -1,22 +1,222 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Islamic Game Zone</title>
-  
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="icon.png">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Islamic Game Zone</title>
+    
+    <!-- Google AdMob / AdSense Meta -->
+    <meta name="google-adsense-account" content="ca-pub-1564785063766835">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1564785063766835" crossorigin="anonymous"></script>
 
-  <!-- GOOGLE ADSENSE SCRIPT -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1564785063766835"
-     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2313261e'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%234caf7a'%3E🕌%3C/text%3E%3C/svg%3E">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
+    <!-- ===== SPLASH SCREEN ===== -->
+    <div id="splashScreen">
+        <div id="splashContent">
+            <div class="splash-bg-image" id="splashBg"></div>
+            <div class="splash-loading-container">
+                <div class="splash-loading-bar" id="loadingBar"></div>
+                <div class="splash-loading-text" id="loadingText">Memuat 0%</div>
+            </div>
+            <div class="splash-overlay">
+                <div class="splash-title">🕌 Islamic Game Zone</div>
+                <div class="splash-sub">Belajar Islam dengan cara menyenangkan!</div>
+                <button id="splashEnterBtn" class="splash-btn">🚀 Mulai Game</button>
+            </div>
+        </div>
+    </div>
 
-  <!-- Panggil JS game kamu -->
-  <script src="script.js"></script>
+    <!-- ===== APP ===== -->
+    <div id="app" style="display:none;">
+        <header>
+            <h1>🕌 Islamic Game Zone</h1>
+            <p>Belajar Islam dengan cara menyenangkan!</p>
+        </header>
+
+        <div id="formScreen">
+            <div class="form-container">
+                <div class="form-title">📝 Data Diri</div>
+                <div class="form-group">
+                    <label>📸 Foto Kamu</label>
+                    <div class="photo-upload">
+                        <div class="photo-preview" id="photoPreview">👤</div>
+                        <p style="font-size:11px;color:#8fb3a0;margin-top:4px;">📷 Klik tombol di bawah</p>
+                        <div style="display:flex;gap:6px;justify-content:center;margin-top:6px;flex-wrap:wrap;">
+                            <button type="button" class="btn-camera" id="btnAmbilFoto">📷 Ambil Foto</button>
+                            <button type="button" class="btn-camera" id="btnGaleri">📁 Galeri</button>
+                        </div>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*" style="display:none;">
+                </div>
+                <div class="form-group">
+                    <label>👤 Nama Lengkap</label>
+                    <input type="text" id="playerName" placeholder="Masukkan namamu..." maxlength="20" value="Arfan">
+                </div>
+                <div class="form-group">
+                    <label>📚 Kelas</label>
+                    <select id="playerClass">
+                        <option value="1">Kelas 1</option>
+                        <option value="2">Kelas 2</option>
+                        <option value="3">Kelas 3</option>
+                        <option value="4">Kelas 4</option>
+                        <option value="5">Kelas 5</option>
+                        <option value="6">Kelas 6</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>🎂 Usia</label>
+                    <input type="number" id="playerAge" placeholder="Berapa usiamu?" min="3" max="99" value="7">
+                </div>
+                <div class="form-group">
+                    <label>🏫 Asal Sekolah</label>
+                    <input type="text" id="playerSchool" placeholder="Nama sekolahmu..." maxlength="30" value="SD Islam">
+                </div>
+                <div id="autoLevelInfo" style="text-align:center;padding:8px;background:#0d1f17;border-radius:10px;margin-bottom:14px;font-size:14px;color:#8fb3a0;">
+                    ⚡ Level otomatis sesuai kelas
+                </div>
+                <button id="startGameBtn" class="btn-start">🚀 Mulai Game</button>
+            </div>
+        </div>
+
+        <div id="petunjukScreen" style="display:none;">
+            <div class="petunjuk-container">
+                <h2>📖 Aturan Main</h2>
+                <div class="petunjuk-list">
+                    <div class="petunjuk-item">✅ Isi data diri dulu (foto, nama, kelas, usia, sekolah)</div>
+                    <div class="petunjuk-item">📚 Level otomatis sesuai kelas (1–2 Mudah, 3–4 Sedang, 5–6 Sulit)</div>
+                    <div class="petunjuk-item">⚠️ Soal TIDAK BISA diulang setelah dijawab</div>
+                    <div class="petunjuk-item">⏱️ Waktu setiap soal: 10 detik</div>
+                    <div class="petunjuk-item">🏆 Setelah selesai, dapat sertifikat 3D!</div>
+                    <div class="petunjuk-item">💾 Sertifikat bisa di-download sebagai PNG</div>
+                </div>
+                <button id="mulaiGameBtn" class="btn-start">🚀 Mulai Game</button>
+                <button id="backToFormBtnPetunjuk" class="btn-back-form">⬅️ Kembali</button>
+            </div>
+        </div>
+
+        <!-- ===== MENU SCREEN DENGAN 3D CAROUSEL ===== -->
+        <div id="menuScreen" style="display:none;">
+            <div class="menu-header">
+                <span id="menuPlayerName">👤 Nama</span>
+                <span>🏆 High Score: <span id="highScoreDisplay">0</span></span>
+            </div>
+            
+            <div class="carousel-wrapper">
+                <button class="carousel-arrow" id="carouselPrev">‹</button>
+                <div class="carousel-container" id="carouselContainer">
+                    <div class="carousel-track" id="carouselTrack"></div>
+                </div>
+                <button class="carousel-arrow" id="carouselNext">›</button>
+            </div>
+            
+            <div class="carousel-info">
+                <span class="info-left">⬅️ Kiri = Selesai</span>
+                <span class="info-center">👆 Klik kartu tengah untuk main</span>
+                <span class="info-right">➡️ Kanan = Terkunci</span>
+            </div>
+            
+            <div class="menu-footer">
+                <button id="resetBtn" class="btn-reset" style="display:none;">🔄 Reset Semua</button>
+                <button id="backToFormBtn" class="btn-back-form">⬅️ Ubah Data</button>
+            </div>
+        </div>
+
+        <div id="gameScreen" style="display:none;">
+            <div id="gameHeader">
+                <button id="backBtn">⬅️ Kembali</button>
+                <span id="gameTitle">Game</span>
+                <span id="timerDisplay">⏱️ 10s</span>
+            </div>
+            <div id="progressContainer"><div id="progressBar"></div></div>
+            <div id="questionBox"><p id="questionText">Loading soal...</p></div>
+            <div id="optionsBox"></div>
+            <div id="feedback"></div>
+            <div id="effectGlow"></div>
+        </div>
+
+        <div id="certificateScreen" style="display:none;">
+            <div class="card-container" onclick="this.classList.toggle('flipped')">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="cert-header">
+                            <span class="cert-icon">🌟</span>
+                            <h2>SERTIFIKAT</h2>
+                            <span class="cert-icon">🌟</span>
+                        </div>
+                        <div class="cert-body">
+                            <div class="cert-photo" id="certPhoto">👤</div>
+                            <div class="cert-name" id="certName">Nama</div>
+                            <div class="cert-class" id="certClass">Kelas</div>
+                            <div class="cert-school" id="certSchool">Sekolah</div>
+                            <div class="cert-details">
+                                <p>🏷️ Game: <span id="certGame">-</span></p>
+                                <p>📊 Level: <span id="certLevel">-</span></p>
+                                <p>⭐ Skor: <span id="certScore">0</span></p>
+                                <p>✅ Benar: <span id="certCorrect">0</span>/<span id="certTotal">0</span></p>
+                                <p>📈 Persentase: <span id="certPercent">0%</span></p>
+                            </div>
+                            <div class="cert-predikat" id="certPredikat">🏆 SEMPURNA!</div>
+                            <div class="cert-date" id="certDate"></div>
+                            <div id="certRiwayat" style="display:block;margin-top:6px;text-align:left;font-size:11px;color:#8fb3a0;max-height:60px;overflow-y:auto;background:#0d1f17;padding:6px;border-radius:6px;border-left:3px solid #4caf7a;"></div>
+                        </div>
+                        <div class="cert-footer" style="margin-top:8px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding-bottom:4px;">
+                            <button id="certHomeBtn" style="padding:6px 14px;background:#2a5a3e;border:none;border-radius:20px;color:#fff;font-size:13px;font-family:'Courier New',monospace;cursor:pointer;">🏠 Kembali</button>
+                            <button id="certDownloadBtn" style="padding:6px 14px;background:#ffd700;border:none;border-radius:20px;color:#0a1410;font-size:13px;font-family:'Courier New',monospace;cursor:pointer;">📥 Download PNG</button>
+                        </div>
+                        <div class="flip-hint">👆 Klik kartu untuk balik</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="back-content">
+                            <div class="back-icon">🕌</div>
+                            <h2>Islamic Game Zone</h2>
+                            <p>🎓 Telah menyelesaikan</p>
+                            <p class="back-name" id="backName">-</p>
+                            <p>dengan predikat</p>
+                            <div class="back-predikat" id="backPredikat">🏆 SEMPURNA!</div>
+                            <div class="back-stats">
+                                <span>⭐ <span id="backScore">0</span></span>
+                                <span>✅ <span id="backCorrect">0</span>/<span id="backTotal">0</span></span>
+                            </div>
+                            <div class="back-date" id="backDate"></div>
+                            <div class="back-stamp">✅ SAH</div>
+                            <div class="flip-hint">👆 Klik kartu untuk balik</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="certificateCollection" style="display:none;margin-top:16px;">
+            <h3 style="text-align:center;color:#ffd700;">🏆 Koleksi Sertifikatmu</h3>
+            <div id="certGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;"></div>
+            <div id="confettiContainer" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden;"></div>
+        </div>
+
+        <div id="endingStamp" style="display:none;text-align:center;padding:20px;margin-top:20px;background:linear-gradient(145deg,#1a2a22,#0d1f17);border-radius:20px;border:4px solid #ff0000;box-shadow:0 0 60px #ff000066;position:relative;">
+            <div style="position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:#ff0000;color:#fff;padding:4px 20px;border-radius:10px;font-size:14px;font-weight:bold;">✅ STAMPEL</div>
+            <div style="font-size:42px;font-weight:bold;color:#ff0000;text-shadow:0 0 40px #ff0000;animation:pulseStamp 1.5s ease-in-out infinite;margin:10px 0;">🎉 SELAMAT! 🎉</div>
+            <div style="font-size:22px;color:#ffd700;margin:6px 0;">SEMUA MISI SELESAI!</div>
+            <div style="font-size:14px;color:#b7e4c7;margin:4px 0;">Kamu telah menyelesaikan semua 9 game dengan luar biasa!</div>
+            <div id="endingStats" style="font-size:13px;color:#8fb3a0;margin:8px 0;padding:10px;background:#0d1f17;border-radius:12px;border:1px solid #2a5a3e;"></div>
+            <div style="display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap;">
+                <button id="refreshBtn" class="btn-refresh" style="padding:10px 24px;background:#ffd700;color:#0a1410;border:none;border-radius:30px;font-size:16px;font-family:'Courier New',monospace;cursor:pointer;box-shadow:0 0 30px #ffd70055;">🔄 Main Lagi</button>
+                <button id="printAllBtn" class="btn-print-all" style="padding:10px 24px;background:#4caf7a;color:#fff;border:none;border-radius:30px;font-size:16px;font-family:'Courier New',monospace;cursor:pointer;box-shadow:0 0 20px #4caf7a55;">🖨️ Cetak Semua</button>
+            </div>
+        </div>
+
+        <footer>
+            <p>Skor: <span id="scoreDisplay">0</span></p>
+        </footer>
+    </div>
+
+    <!-- AdMob SDK & Logic Script -->
+    <script src="https://cdn.jsdelivr.net/npm/admob-plus-cordova@1.9.0/dist/admob.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
