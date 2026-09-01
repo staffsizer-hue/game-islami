@@ -5,12 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Islamic Game Zone</title>
   
-  <!-- Favicon & PWA Icons -->
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="icon.png">
   <link rel="manifest" href="manifest.json">
-
-  <!-- Style CSS Utama -->
   <link rel="stylesheet" href="style.css">
 
   <!-- GOOGLE ADSENSE SCRIPT -->
@@ -18,7 +15,6 @@
      crossorigin="anonymous"></script>
 
   <style>
-    /* Style sederhana untuk Modal Pop-up Iklan Sertifikat */
     .ad-modal-overlay {
       display: none;
       position: fixed;
@@ -68,18 +64,12 @@
 </head>
 <body>
 
-  <!-- Konten Utama Game Kamu -->
-  <div id="app">
-    <!-- Game interface dimuat dari script.js -->
-  </div>
-
-  <!-- POP-UP MODAL IKLAN DOWNLOAD SERTIFIKAT -->
+  <!-- MODAL POP-UP IKLAN SERTIFIKAT -->
   <div id="adCertificateModal" class="ad-modal-overlay">
     <div class="ad-modal-content">
       <h3>📜 Menyiapkan Sertifikat</h3>
       <p id="adTimerText">Sertifikat Anda siap dalam <b>5</b> detik...</p>
       
-      <!-- SLOT IKLAN ADSENSE -->
       <div class="ad-container">
         <ins class="adsbygoogle"
              style="display:block; width:100%; height:250px;"
@@ -98,12 +88,9 @@
     </div>
   </div>
 
-  <!-- Script JS Game -->
   <script src="script.js"></script>
 
-  <!-- Script Logika Timer & Download Sertifikat -->
   <script>
-    // Fungsi ini dipanggil saat user menekan tombol 'Download Sertifikat'
     function triggerDownloadWithAd(callbackDownload) {
       const modal = document.getElementById('adCertificateModal');
       const timerText = document.getElementById('adTimerText');
