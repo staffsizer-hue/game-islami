@@ -1351,7 +1351,7 @@ footer {
 /* ===== TAMBAHAN SPLASH OVERLAY TOP ===== */
 .splash-overlay-top {
     position: absolute;
-    top: 25px; /* Atur jarak dari atas layar */
+    top: 25px;
     left: 0;
     width: 100%;
     text-align: center;
@@ -1359,27 +1359,34 @@ footer {
     padding: 0 15px;
 }
 
-/* ===== RESPONSIF ===== */
+/* ===== RESPONSIF (PERBAIKAN HP & TOMBOL SIAP MAIN) ===== */
 @media (max-width: 550px) {
-    #app { padding: 16px; }
+    #app { 
+        padding: 12px; 
+    }
+    
     .carousel-container {
-        width: 220px;
-        height: 400px;
+        width: 250px;
+        height: 480px;
     }
+    
     .carousel-card {
-        width: 160px;
-        height: 340px;
-        padding: 10px;
+        width: 175px;
+        height: 420px;
+        padding: 8px;
     }
+    
     .carousel-card.center {
-        width: 200px;
-        height: 380px;
+        width: 220px;
+        height: 465px; /* Tinggi disesuaikan agar tombol muat */
+        transform: scale(1) translateX(0px) rotateY(0deg);
     }
+
     .carousel-card.left {
-        transform: scale(0.7) translateX(-120px) rotateY(15deg);
+        transform: scale(0.75) translateX(-130px) rotateY(15deg);
     }
     .carousel-card.right {
-        transform: scale(0.7) translateX(120px) rotateY(-15deg);
+        transform: scale(0.75) translateX(130px) rotateY(-15deg);
     }
     .carousel-card.far-left {
         transform: scale(0.5) translateX(-220px) rotateY(30deg);
@@ -1387,20 +1394,57 @@ footer {
     .carousel-card.far-right {
         transform: scale(0.5) translateX(220px) rotateY(-30deg);
     }
+    
     .carousel-arrow {
         width: 34px;
         height: 34px;
         font-size: 18px;
     }
+
+    /* Penyesuaian elemen di dalam kartu HP agar ringkas & muat */
+    .carousel-card .card-avatar {
+        padding: 4px 0;
+        margin-bottom: 4px;
+    }
     .carousel-card .card-avatar .avatar-emoji {
-        font-size: 36px;
+        font-size: 32px;
+    }
+    .carousel-card .card-avatar .avatar-title {
+        font-size: 8px;
+    }
+    
+    .carousel-card .card-stats {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 2px;
+        margin-bottom: 4px;
+    }
+    .carousel-card .card-stats .stat-item {
+        padding: 2px 1px;
     }
     .carousel-card .card-stats .stat-item .stat-value {
-        font-size: 12px;
+        font-size: 10px;
     }
-    .carousel-card .card-stats {
-        grid-template-columns: 1fr 1fr;
+    .carousel-card .card-stats .stat-item .stat-label {
+        font-size: 6px;
     }
+
+    .carousel-card .card-skill {
+        padding: 3px 6px;
+        margin-bottom: 3px;
+    }
+    .carousel-card .card-skill .skill-title {
+        font-size: 8px;
+    }
+    .carousel-card .card-skill .skill-desc {
+        font-size: 6px;
+    }
+
+    .carousel-card .card-status-overlay {
+        font-size: 8px;
+        padding: 6px 4px;
+        margin-top: 2px;
+    }
+
     .carousel-info {
         font-size: 8px;
         padding: 6px 12px;
@@ -1408,6 +1452,4 @@ footer {
         text-align: center;
         gap: 2px;
     }
-    .cert-details { grid-template-columns: 1fr; gap: 4px; }
-    .card-front, .card-back { padding: 14px; min-height: 380px; }
 }
