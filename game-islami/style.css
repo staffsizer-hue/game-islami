@@ -1348,6 +1348,17 @@ footer {
     50% { opacity: 0.2; }
 }
 
+/* ===== TAMBAHAN SPLASH OVERLAY TOP ===== */
+.splash-overlay-top {
+    position: absolute;
+    top: 25px; /* Atur jarak dari atas layar */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    padding: 0 15px;
+}
+
 /* ===== RESPONSIF ===== */
 @media (max-width: 550px) {
     #app { padding: 16px; }
@@ -1399,31 +1410,4 @@ footer {
     }
     .cert-details { grid-template-columns: 1fr; gap: 4px; }
     .card-front, .card-back { padding: 14px; min-height: 380px; }
-    .cert-photo { width: 60px; height: 60px; font-size: 28px; }
-    .form-container { padding: 14px; }
-    .menu-header { flex-direction: column; gap: 4px; text-align: center; }
-    #certGrid { grid-template-columns: 1fr 1fr; }
-    .splash-title { font-size: 24px; }
-    .splash-sub { font-size: 10px; }
-    .splash-btn { font-size: 13px; padding: 12px 24px; }
-    #splashContent { max-height: 100vh; }
-    header h1 { font-size: 18px; }
-    #questionText { font-size: 13px; }
-    .option-btn { font-size: 10px; padding: 10px; }
-    .cert-name { font-size: 15px; }
-    .cert-predikat { font-size: 16px; }
-    .back-name { font-size: 18px !important; }
-}
-
-@media print {
-    body * { visibility: hidden; }
-    #certificateScreen, #certificateScreen * { visibility: visible; }
-    #certificateScreen { position: absolute; top: 0; left: 0; width: 100%; padding: 20px; background: white; }
-    .card-container.flipped .card { transform: rotateY(0deg) !important; }
-    .card-back { display: none !important; }
-    .cert-footer button { display: none !important; }
-    .flip-hint { display: none !important; }
-    #backBtn, #gameHeader, footer, #progressContainer { display: none !important; }
-    .carousel-card .card-status-overlay { display: none !important; }
-    .carousel-card .card-level-badge { display: none !important; }
 }
